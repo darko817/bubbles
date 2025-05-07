@@ -65,3 +65,18 @@ export const accountCards = [
     route: ACCOUNT_ROUTES.logout,
   },
 ];
+
+export const faqData = [
+  {
+    question: "Kako mogu da poručim?",
+    answer: "Dodajte proizvode u korpu i pratite korake za potvrdu porudžbine.",
+  },
+  {
+    question: "Koji su načini plaćanja?",
+    answer: "Možete platiti pouzećem ili platnom karticom.",
+  },
+  {
+    question: "Kako da izmenim svoju porudžbinu?",
+    answer: "Kontaktirajte nas direktno putem broja ili emaila prikazanog u aplikaciji.",
+  },
+];
