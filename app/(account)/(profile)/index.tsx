@@ -5,7 +5,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { formatSerbianPhone } from "@/helpers/phoneRegex";
 import { useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, Linking, Platform, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileScreen = () => {
@@ -25,10 +25,16 @@ const ProfileScreen = () => {
     setMobilePhone(formatted);
   };
 
-
+  const openNotificationSettings = () => {
+    if (Platform.OS === "android") {
+      Linking.openSettings(); // Opens system settings for the app
+    } else if (Platform.OS === "ios") {
+      Linking.openURL("app-settings:"); // Opens app settings on iOS
+    }
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <View className="flex-1">
         <HeaderNav
           onPress={() => router.back()}
@@ -62,7 +68,9 @@ const ProfileScreen = () => {
               onChange={handlePhoneChange}
               onFocus={() => setIsFocused(true)}
               selection={
-                isFocused && mobilePhone.startsWith("+381 ") && mobilePhone.length <= 6
+                isFocused &&
+                mobilePhone.startsWith("+381 ") &&
+                mobilePhone.length <= 6
                   ? { start: 6, end: 6 }
                   : undefined
               }
@@ -72,12 +80,38 @@ const ProfileScreen = () => {
           <View className="border border-gray-300 my-5 mx-12" />
 
           <View className="flex-col gap-8 mx-20">
-            <ClientInfo text="Data on cards" icon onPress={() => router.push('/(account)/(profile)/cardInfo')} />
-            <ClientInfo text="Order history" icon onPress={() => router.push('/(account)/(profile)/orderHistory')} />
-            <ClientInfo text="Delivery address" icon onPress={() => router.push('/(account)/(profile)/deliveryAddress')} />
-            <ClientInfo text="Privacy" icon onPress={() => router.push('/(account)/(profile)/privacy')} />
-
-
+            <ClientInfo
+              text="Data on cards"
+              icon
+              onPress={() => router.push("/(account)/(profile)/cardInfo")}
+            />
+            <ClientInfo
+              text="Order history"
+              icon
+              onPress={() => router.push("/(account)/(profile)/orderHistory")}
+            />
+            <ClientInfo
+              text="Delivery address"
+              icon
+              onPress={() =>
+                router.push("/(account)/(profile)/deliveryAddress")
+              }
+            />
+            <ClientInfo
+              text="Notifications"
+              icon
+              onPress={openNotificationSettings}
+            />
+            <ClientInfo
+              text="Language"
+              icon
+              onPress={() => router.push("/(account)/(profile)/language")}
+            />
+            <ClientInfo
+              text="Privacy"
+              icon
+              onPress={() => router.push("/(account)/(profile)/privacy")}
+            />
           </View>
         </ScrollView>
       </View>

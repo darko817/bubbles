@@ -12,7 +12,7 @@ const AccountScreen = () => {
   const { user } = useContext(AuthContext);
   const router = useRouter();
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
       <View className="flex-1">
         <HeaderNav
           icon="arrow-left"
@@ -32,7 +32,9 @@ const AccountScreen = () => {
           keyExtractor={(item) => item.id}
           ListHeaderComponent={() => (
             <View className="pt-10 pb-3 bg-white ">
-              <Text className="pl-12 text-3xl text-blue-400 text-left">Account</Text>
+              <Text className="pl-12 text-3xl text-blue-400 text-left">
+                Account
+              </Text>
             </View>
           )}
           renderItem={({ item }) => (
