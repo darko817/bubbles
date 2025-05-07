@@ -9,6 +9,8 @@ export default function ProfileLayout() {
         <Stack.Screen name="orderHistory" options={{ headerShown: false }} />
         <Stack.Screen name="deliveryAddress" options={{ headerShown: false }} />
         <Stack.Screen name="privacy" options={{ headerShown: false }} />
+        <Stack.Screen name="language" options={{ headerShown: false }} />
+        <Stack.Screen name="notifications" options={{ headerShown: false }} />
       </Stack>
     </>
   );

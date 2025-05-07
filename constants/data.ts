@@ -44,20 +44,6 @@ export const accountCards = [
     route: ACCOUNT_ROUTES.support,
   },
   {
-    id: "6",
-    icon: "user",
-    text: "Language",
-    icon2: "chevron-right",
-    route: ACCOUNT_ROUTES.language,
-  },
-  {
-    id: "7",
-    icon: "user",
-    text: "Notifications",
-    icon2: "chevron-right",
-    route: ACCOUNT_ROUTES.notifications,
-  },
-  {
     id: "8",
     icon: "user",
     text: "Log out",
