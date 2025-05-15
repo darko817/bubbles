@@ -27,75 +27,77 @@ const SignUp = () => {
     router.push("/(auth)/login");
   };
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
+    <View className="flex-1">
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View className="flex-1 justify-center items-center px-10 py-10 bg-white">
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="absolute top-[15px] left-[20px]"
-          >
-            <Icon name="arrow-left" size={24} color="gray" />
-          </TouchableOpacity>
-          <Image
-            source={{
-              uri: "https://placehold.co/600x400/orange/white",
-            }}
-            className="w-[60%] h-52 rounded-lg bg-red-600 my-10"
-            resizeMode="cover"
-          />
-          <View className="flex-col gap-6 w-full">
-            <Input placeholder="Name*" value={name} onChangeText={setName} />
-            <Input
-              placeholder="Surname*"
-              value={surname}
-              onChangeText={setSurname}
-            />
-            <Input
-              placeholder="Email*"
-              keyboardType="email-address"
-              textContentType="emailAddress"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <Input
-              placeholder="Phone number*"
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-            />
-            <Input
-              placeholder="Password*"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-
-            <View className="flex-row items-start">
-              <CustomCheckbox
-                isChecked={isAgreed}
-                onToggle={() => setIsAgreed(!isAgreed)}
-              />
-              <Text className="ml-3 text-blue-400 underline">
-                Privacy policy
-              </Text>
-            </View>
-
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View className="flex-1 justify-center items-center px-10 py-10 bg-white">
             <TouchableOpacity
-              disabled={!isAgreed}
-              onPress={handleSignUp}
-              className="bg-blue-400 w-full py-5 rounded-full mb-6"
+              onPress={() => router.back()}
+              className="absolute top-16 left-[20px]"
             >
-              <Text className="text-center text-white">Sign Up</Text>
+              <Icon name="arrow-left" size={24} color="gray" />
             </TouchableOpacity>
+            <Image
+              source={{
+                uri: "https://placehold.co/600x400/orange/white",
+              }}
+              className="w-[60%] h-52 rounded-lg bg-red-600 my-10"
+              resizeMode="cover"
+            />
+            <View className="flex-col gap-6 w-full">
+              <Input placeholder="Name*" value={name} onChangeText={setName} />
+              <Input
+                placeholder="Surname*"
+                value={surname}
+                onChangeText={setSurname}
+              />
+              <Input
+                placeholder="Email*"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                value={email}
+                onChangeText={setEmail}
+              />
+              <Input
+                placeholder="Phone number*"
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+              />
+              <Input
+                placeholder="Password*"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+              />
+
+              <View className="flex-row items-start">
+                <CustomCheckbox
+                  isChecked={isAgreed}
+                  onToggle={() => setIsAgreed(!isAgreed)}
+                />
+                <Text className="ml-3 text-blue-400 underline">
+                  Privacy policy
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                disabled={!isAgreed}
+                onPress={handleSignUp}
+                className="bg-blue-400 w-full py-5 rounded-full mb-6"
+              >
+                <Text className="text-center text-white">Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 

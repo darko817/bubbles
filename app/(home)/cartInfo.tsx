@@ -1,6 +1,6 @@
 import CartHeaderNav from "@/components/CartHeader";
 import ClientInfo from "@/components/ClientInfo";
-import TimePickerModal from "@/components/TimePickerModal";
+import DateTimePickerModal from "@/components/modals/DateTimePickerModal";
 import { AuthContext } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { formatSerbianPhone } from "@/helpers/phoneRegex";
@@ -16,14 +16,13 @@ import {
   View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const CartScreen = () => {
   const { user } = useContext(AuthContext);
   const router = useRouter();
-  const { triggerOverlay, clearCart, cartItems } = useCart();
+  const { clearCart, cartItems } = useCart();
   const [client, setClient] = useState(user?.name);
   const [mobilePhone, setMobilePhone] = useState(user?.phone ?? "+381 ");
   const [isFocused, setIsFocused] = useState(false);
@@ -37,6 +36,7 @@ const CartScreen = () => {
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const total = cartItems.reduce((sum, item) => sum + item.price, 0);
@@ -84,12 +84,12 @@ const CartScreen = () => {
       console.error("Error saving order:", error);
     }
 
-    router.replace("/(home)");
-    triggerOverlay("Porudžbina je uspesno kreirana");
+    router.replace("/(home)/orderConfirmation");
     clearCart();
   };
 
-  const handleTimeSelect = (time: any) => {
+  const handleTimeSelect = (date: string, time: string) => {
+    setSelectedDate(date);
     setSelectedTime(time);
   };
 
@@ -117,7 +117,7 @@ const CartScreen = () => {
       }; */
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <CartHeaderNav
         icon="arrow-left"
         onPress={() => router.back()}
@@ -282,10 +282,15 @@ const CartScreen = () => {
               className="bg-white rounded-full flex w-[80%]"
               onPress={() => setModalVisible(true)}
             >
-              {selectedTime ? (
-                <Text className="text-gray-400 text-xl py-2 text-center">
-                  {selectedTime}
-                </Text>
+              {selectedTime && selectedDate ? (
+                <View className="flex flex-row justify-center gap-4">
+                  <Text className="text-gray-400 text-xl py-2 text-center">
+                    {selectedDate}
+                  </Text>
+                  <Text className="text-gray-400 text-xl py-2 text-center">
+                    {selectedTime}
+                  </Text>
+                </View>
               ) : (
                 <Text className="text-gray-400 text-xl py-2 text-center">
                   Izaberi vreme
@@ -295,10 +300,12 @@ const CartScreen = () => {
             <Text className="text-white text-xl">
               Izaberite vreme preuzimanja porudzbine
             </Text>
-            <TimePickerModal
+            <DateTimePickerModal
               isVisible={isModalVisible}
               onClose={() => setModalVisible(false)}
-              onTimeSelect={handleTimeSelect}
+              onSelect={handleTimeSelect}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
             />
           </View>
         </View>
@@ -311,7 +318,7 @@ const CartScreen = () => {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

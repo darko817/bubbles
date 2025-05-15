@@ -5,7 +5,6 @@ import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 const Faq = () => {
@@ -18,11 +17,12 @@ const Faq = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+    <View className="flex-1">
       <HeaderNav
         icon="arrow-left"
         onPress={() => router.back()}
         username={user?.name}
+        client
       />
       <View className="-mt-4 -z-10 relative">
         <Image
@@ -60,7 +60,7 @@ const Faq = () => {
           </View>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

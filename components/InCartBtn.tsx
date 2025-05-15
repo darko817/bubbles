@@ -20,7 +20,6 @@ const InCartBtn = ({ onPress }: InCartBtnProps) => {
 
   useEffect(() => {
     if (showAddedOverlay) {
-      // Trigger a pulse animation when item is added
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 1.2,

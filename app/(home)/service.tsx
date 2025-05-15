@@ -5,7 +5,6 @@ import { useCart } from "@/context/CartContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const ServiceScreen = () => {
   const router = useRouter();
@@ -14,8 +13,8 @@ const ServiceScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <HeaderNav icon="arrow-left" onPress={() => router.back()} />
+    <View className="flex-1 bg-white">
+      <HeaderNav icon="arrow-left" onPress={() => router.back()} client />
       <FlatList
         data={weights}
         keyExtractor={(item) => item.id}
@@ -54,15 +53,20 @@ const ServiceScreen = () => {
               textColor="white"
               onPress={() => {
                 if (selectedId) {
-                  const selectedItem = weights.find(item => item.id === selectedId);
+                  const selectedItem = weights.find(
+                    (item) => item.id === selectedId
+                  );
                   if (selectedItem) {
                     addToCart({
                       id: selectedItem.id,
                       text: selectedItem.text,
                       price: selectedItem.price,
-                      service: typeof service === "string" ? service : "Nepoznata usluga",
+                      service:
+                        typeof service === "string"
+                          ? service
+                          : "Nepoznata usluga",
                     });
-                    triggerOverlay('Usluga je kreirana');
+                    triggerOverlay("Usluga je kreirana");
                     router.back();
                   }
                 }
@@ -76,7 +80,7 @@ const ServiceScreen = () => {
           </View>
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

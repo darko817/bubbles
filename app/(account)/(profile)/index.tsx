@@ -6,7 +6,6 @@ import { formatSerbianPhone } from "@/helpers/phoneRegex";
 import { useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
 import { Image, Linking, Platform, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileScreen = () => {
   const { user } = useContext(AuthContext);
@@ -34,13 +33,14 @@ const ProfileScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+    <View className="flex-1">
       <View className="flex-1">
         <HeaderNav
           onPress={() => router.back()}
           icon="arrow-left"
           username={user?.name}
           noCart
+          client
         />
         <View className="-mt-4 -z-10 relative">
           <Image
@@ -115,7 +115,7 @@ const ProfileScreen = () => {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

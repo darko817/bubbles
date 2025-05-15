@@ -3,7 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const Orders = () => {
@@ -23,9 +22,14 @@ const Orders = () => {
     fetchOrders();
   }, []);
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+    <View className="flex-1">
       <View className="flex-1">
-        <HeaderNav icon="arrow-left" onPress={() => router.back()} noCart />
+        <HeaderNav
+          icon="arrow-left"
+          onPress={() => router.back()}
+          noCart
+          client
+        />
         <ScrollView className="p-4">
           <Text className="text-2xl font-bold text-center text-blue-400 mb-10 mt-4">
             Statusi porudžbina
@@ -59,7 +63,7 @@ const Orders = () => {
           )}
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

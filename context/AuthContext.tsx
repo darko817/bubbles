@@ -1,11 +1,8 @@
+import { User } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-
-type User = {
-  name: string;
-  email?: string;
-  phone?: string
-};
+import { Text, View } from "react-native";
 
 type AuthContextType = {
   user: User | null;
@@ -18,8 +15,8 @@ type AuthContextType = {
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
-  login: async () => { },
-  logout: async () => { },
+  login: async () => {},
+  logout: async () => {},
   loading: true,
 });
 
@@ -27,8 +24,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  // This effect runs once, on app start, to load the session from AsyncStorage
   useEffect(() => {
     const loadSession = async () => {
       console.log("⏳ Loading session...");
@@ -41,23 +38,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.log("✅ Stored token:", storedToken);
 
         if (storedUser && storedToken) {
-          // If we have user and token data, update the state
           setUser(JSON.parse(storedUser));
           setToken(storedToken);
         }
       } catch (e) {
         console.error("❌ Failed to load auth data:", e);
       } finally {
-        if (loading) {
-          // Avoid unnecessary update if already set to false
-          console.log("✅ Finished loading session");
-          setLoading(false); // Once loading is done, set loading to false
-        }
+        setLoading(false);
       }
     };
 
     loadSession();
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      if (user) {
+        if (user.role === "worker") {
+          router.replace("/(home)/(worker)");
+        } else if (user.role === "driver") {
+          router.replace("/(home)/(driver)");
+        } else if (user.role === "client") {
+          router.replace("/(home)");
+        }
+      } else {
+        router.replace("/(auth)");
+      }
+    }
+  }, [user, loading]);
 
   const login = async (userData: User, authToken: string) => {
     try {
@@ -74,10 +82,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     try {
+      console.log("🚪 Logging out...");
+      await AsyncStorage.multiRemove(["user", "token"]);
       setUser(null);
       setToken(null);
-      await AsyncStorage.removeItem("user");
-      await AsyncStorage.removeItem("token");
+
+      setTimeout(() => {
+        router.replace("/(auth)");
+      }, 100);
     } catch (e) {
       console.error("Logout error:", e);
     }
@@ -85,7 +97,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ user, token, login, logout, loading }}>
-      {children}
+      {loading ? (
+        <View className="flex-1 justify-center items-center">
+          <Text>Loading...</Text>
+        </View>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

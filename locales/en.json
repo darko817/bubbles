@@ -1,5 +1,8 @@
 {
   "auth": {
     "title1": "First title"
+  },
+  "navbar":{
+    "greet": "Hello"
   }
 }

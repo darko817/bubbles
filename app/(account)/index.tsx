@@ -1,23 +1,28 @@
 import AccountBtn from "@/components/AccountBtn";
 import HeaderNav from "@/components/Header";
+import CustomModal from "@/components/modals/CustomModal";
 import { accountCards } from "@/constants/data";
 import { images } from "@/constants/images";
 import { AuthContext } from "@/context/AuthContext";
+import { useLogoutConfirmation } from "@/hooks/useLogout";
 import { useRouter } from "expo-router";
 import React, { useContext } from "react";
 import { FlatList, Image, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const AccountScreen = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const router = useRouter();
+  const { isModalVisible, requestLogout, confirmLogout, cancelLogout } =
+    useLogoutConfirmation();
+
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+    <View className="flex-1">
       <View className="flex-1">
         <HeaderNav
           icon="arrow-left"
           onPress={() => router.replace("/(home)")}
           username={user?.name}
+          client
         />
         <View className="-mt-4 -z-10 relative">
           <Image
@@ -43,14 +48,27 @@ const AccountScreen = () => {
                 icon={item.icon}
                 title={item.text}
                 icon2={item.icon2}
-                onPress={() => router.push(item.route)}
+                onPress={
+                  item.text === "Log out"
+                    ? requestLogout
+                    : () => router.push(item.route)
+                }
               />
             </View>
           )}
           className="flex-1 rounded-t-[20px] bg-white -mt-5"
         />
       </View>
-    </SafeAreaView>
+
+      <CustomModal
+        isVisible={isModalVisible}
+        title="Da li ste sigurni da želite da se izlogujete?"
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+        confirmText="OK"
+        cancelText="Cancel"
+      />
+    </View>
   );
 };
 
