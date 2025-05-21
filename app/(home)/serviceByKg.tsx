@@ -6,7 +6,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
-const ServiceScreen = () => {
+const ServiceByKgScreen = () => {
   const router = useRouter();
   const { service } = useLocalSearchParams();
   const { addToCart, triggerOverlay } = useCart();
@@ -84,4 +84,4 @@ const ServiceScreen = () => {
   );
 };
 
-export default ServiceScreen;
+export default ServiceByKgScreen;

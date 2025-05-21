@@ -17,7 +17,7 @@ interface ServiceBtnProps {
   bgColor?: string;
   textColor?: string;
   selected?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 const ServiceButton = ({
@@ -30,7 +30,7 @@ const ServiceButton = ({
   bgColor,
   textColor,
   selected,
-  disabled
+  disabled,
 }: ServiceBtnProps) => {
   return (
     <>
@@ -66,7 +66,7 @@ const ServiceButton = ({
           className="w-full flex-row justify-between items-center px-4 py-2 border border-blue-400 rounded-3xl"
         >
           <View className="flex-row items-center gap-8">
-            {image && <Image source={image} className="h-20 w-8" />}
+            {image && <Image source={image} className="h-20 w-16" />}
             <Text className="text-center text-xl text-gray-400">{text}</Text>
           </View>
           {icon && <Icon name={icon} color="gray" />}

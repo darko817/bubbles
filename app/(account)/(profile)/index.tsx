@@ -1,11 +1,12 @@
 import ClientInfo from "@/components/ClientInfo";
 import HeaderNav from "@/components/Header";
+import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { AuthContext } from "@/context/AuthContext";
 import { formatSerbianPhone } from "@/helpers/phoneRegex";
 import { useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
-import { Image, Linking, Platform, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 
 const ProfileScreen = () => {
   const { user } = useContext(AuthContext);
@@ -24,14 +25,6 @@ const ProfileScreen = () => {
     setMobilePhone(formatted);
   };
 
-  const openNotificationSettings = () => {
-    if (Platform.OS === "android") {
-      Linking.openSettings(); // Opens system settings for the app
-    } else if (Platform.OS === "ios") {
-      Linking.openURL("app-settings:"); // Opens app settings on iOS
-    }
-  };
-
   return (
     <View className="flex-1">
       <View className="flex-1">
@@ -44,9 +37,9 @@ const ProfileScreen = () => {
         />
         <View className="-mt-4 -z-10 relative">
           <Image
-            source={images.headerImage}
+            source={images.profileImage}
             resizeMode="cover"
-            className="h-60"
+            className="h-60 w-full"
           />
         </View>
 
@@ -61,8 +54,17 @@ const ProfileScreen = () => {
           </View>
 
           <View className="flex-col gap-8 mt-4 ml-20  ">
-            <ClientInfo value={client!} onChange={setClient} />
-            <ClientInfo value={email!} onChange={setEmail} email />
+            <ClientInfo
+              value={client!}
+              onChange={setClient}
+              iconImage={icons.profileIcon}
+            />
+            <ClientInfo
+              value={email!}
+              onChange={setEmail}
+              email
+              iconImage={icons.mailIcon}
+            />
             <ClientInfo
               value={mobilePhone}
               onChange={handlePhoneChange}
@@ -74,6 +76,7 @@ const ProfileScreen = () => {
                   ? { start: 6, end: 6 }
                   : undefined
               }
+              iconImage={icons.phoneIcon}
             />
           </View>
 
@@ -84,11 +87,13 @@ const ProfileScreen = () => {
               text="Data on cards"
               icon
               onPress={() => router.push("/(account)/(profile)/cardInfo")}
+              iconImage={icons.cardsIcon}
             />
             <ClientInfo
               text="Order history"
               icon
               onPress={() => router.push("/(account)/(profile)/orderHistory")}
+              iconImage={icons.historyIcon}
             />
             <ClientInfo
               text="Delivery address"
@@ -96,21 +101,13 @@ const ProfileScreen = () => {
               onPress={() =>
                 router.push("/(account)/(profile)/deliveryAddress")
               }
-            />
-            <ClientInfo
-              text="Notifications"
-              icon
-              onPress={openNotificationSettings}
-            />
-            <ClientInfo
-              text="Language"
-              icon
-              onPress={() => router.push("/(account)/(profile)/language")}
+              iconImage={icons.addressIcon}
             />
             <ClientInfo
               text="Privacy"
               icon
               onPress={() => router.push("/(account)/(profile)/privacy")}
+              iconImage={icons.privacyIcon}
             />
           </View>
         </ScrollView>

@@ -1,7 +1,9 @@
 import HeaderNav from "@/components/Header";
+import CustomModal from "@/components/modals/CustomModal";
+import { icons } from "@/constants/icons";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
@@ -9,6 +11,7 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 const CartScreen = () => {
   const { cartItems, clearCart } = useCart();
   const router = useRouter();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const groupedItems = cartItems.reduce((acc, item) => {
     if (!acc[item.service]) {
@@ -28,10 +31,10 @@ const CartScreen = () => {
   const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-white">
       <HeaderNav
         icon="arrow-left"
-        onPress={() => router.back()}
+        onPress={() => router.push("/(home)")}
         title="Korpa"
         noCart
         client
@@ -39,7 +42,7 @@ const CartScreen = () => {
       <ScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        className="flex-1 rounded-t-[20px] bg-white px-12"
+        className="flex-1 bg-white px-12"
         contentContainerStyle={{ paddingBottom: 80 }}
       >
         {cartItems.length === 0 ? (
@@ -83,7 +86,7 @@ const CartScreen = () => {
             <View className="flex-row justify-between border-b-2 border-gray-300 py-3" />
 
             <TouchableOpacity
-              onPress={clearCart}
+              onPress={() => setShowConfirmModal(true)}
               className="flex-row gap-4 justify-center items-center mt-6"
             >
               <AntIcon name="shoppingcart" size={32} color="grey" />
@@ -103,6 +106,19 @@ const CartScreen = () => {
           </>
         )}
       </ScrollView>
+
+      <CustomModal
+        isVisible={showConfirmModal}
+        onCancel={() => setShowConfirmModal(false)}
+        onConfirm={() => {
+          clearCart();
+          setShowConfirmModal(false);
+        }}
+        title="Da li ste sigurni da želite da ispraznite korpu?"
+        cancelText="Otkaži"
+        confirmText="Potvrdi"
+        icon={icons.exclamationIcon}
+      />
     </View>
   );
 };

@@ -1,4 +1,6 @@
 // /app/orderConfirmation.tsx
+import CustomModal from "@/components/modals/CustomModal";
+import { icons } from "@/constants/icons";
 import { useCart } from "@/context/CartContext";
 import { useOrderContext } from "@/context/OrderContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -11,23 +13,27 @@ const OrderConfirmation = () => {
   const { triggerOverlay } = useCart();
   const router = useRouter();
   const params = useLocalSearchParams();
-  const [secondsLeft, setSecondsLeft] = useState(90);
+  const [secondsLeft, setSecondsLeft] = useState(15);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Find the matching order
   const orderId = params.id as string;
   const order = newOrders.find((o) => o.id === orderId);
+
+  const onConfirmModal = () => {
+    setShowSuccessModal(false);
+    router.replace("/(home)");
+    triggerOverlay("Porudžbina je uspesno kreirana");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       setSecondsLeft((prev) => prev - 1);
     }, 1000);
 
-    // Stop when 0
     if (secondsLeft <= 0) {
       clearInterval(interval);
-      router.replace("/(home)");
-
-      triggerOverlay("Porudžbina je uspesno kreirana");
+      setShowSuccessModal(true);
     }
 
     // Auto-navigate on acceptance
@@ -66,12 +72,20 @@ const OrderConfirmation = () => {
 
   return (
     <View className="flex-1 flex-col gap-8 justify-center items-center bg-white">
-      <CountdownCircleTimer isPlaying duration={90} colors="#60a5fa">
+      <CountdownCircleTimer isPlaying duration={15} colors="#60a5fa">
         {() => <Text className="text-3xl text-blue-400">{secondsLeft}s</Text>}
       </CountdownCircleTimer>
       <Text className="text-3xl font-bold text-blue-400 mb-4">
         Čekamo potvrdu radnje...
       </Text>
+      <CustomModal
+        isVisible={showSuccessModal}
+        onConfirm={() => onConfirmModal()}
+        title="Porudžbina je uspešno kreirana!"
+        confirmText="Potvrdi"
+        icon={icons.exclamationIcon}
+        isInfo
+      />
     </View>
   );
 };

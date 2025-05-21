@@ -90,9 +90,9 @@ const Cardscreen = () => {
 
         <View className="-mt-4 -z-10 relative">
           <Image
-            source={images.headerImage}
+            source={images.paymentImage}
             resizeMode="cover"
-            className="h-60"
+            className="h-60 w-full"
           />
         </View>
 

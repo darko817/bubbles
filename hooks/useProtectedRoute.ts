@@ -7,7 +7,7 @@ export const useProtectedRoute = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (loading) return; // 🔒 Wait for session to load
+    if (loading) return; 
 
     if (!user) {
       console.log("🔁 No user, redirecting to auth...");

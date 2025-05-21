@@ -5,11 +5,12 @@ import { AuthContext } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { formatSerbianPhone } from "@/helpers/phoneRegex";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
 import {
   Alert,
   ScrollView,
+  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
@@ -38,6 +39,16 @@ const CartScreen = () => {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [missingFields, setMissingFields] = useState<string[]>([]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setHidden(true, "fade");
+
+      return () => {
+        StatusBar.setHidden(false, "fade");
+      };
+    }, [])
+  );
 
   const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
@@ -120,7 +131,7 @@ const CartScreen = () => {
     <View className="flex-1 bg-white">
       <CartHeaderNav
         icon="arrow-left"
-        onPress={() => router.back()}
+        onPress={() => router.push("/(home)/cart")}
         title="Sadrzaj korpe"
       />
       <ScrollView

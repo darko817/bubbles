@@ -31,6 +31,18 @@ export default function AccountLayout() {
           }}
         />
         <Stack.Screen
+          name="notifications"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="language"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="logout"
           options={{
             headerShown: false,

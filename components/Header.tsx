@@ -1,6 +1,8 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   default as FeatherIcons,
   default as Icon,
@@ -30,17 +32,18 @@ const HeaderNav = ({
   onPressRefresh,
 }: HeaderNavprops) => {
   const { t } = useTranslation();
+  const router = useRouter();
   return (
-    <>
+    <SafeAreaView edges={["top"]} className="z-10">
       {client ? (
         <View
-          className="bg-white px-4 pb-6 pt-16 flex-row justify-between items-center rounded-b-[20px] z-10"
+          className="bg-white px-4 pb-6 pt-5 flex-row justify-between items-center rounded-b-[20px] z-10"
           style={{
             shadowColor: "#000",
-            shadowOffset: { width: 0, height: 8 },
-            shadowOpacity: 1,
-            shadowRadius: 40,
-            elevation: 10, // for Android
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.05,
+            shadowRadius: 10,
+            elevation: 4,
           }}
         >
           <TouchableOpacity onPress={onPress}>
@@ -63,7 +66,9 @@ const HeaderNav = ({
           {noCart ? (
             <View className="h-8 w-8 rounded-2xl border border-white" />
           ) : (
-            <TouchableOpacity onPress={() => console.log("Open profile")}>
+            <TouchableOpacity
+              onPress={() => router.push("/(home)/allOrderStatus")}
+            >
               <Image
                 source={{ uri: "https://placehold.co/32x32" }}
                 className="h-8 w-8 rounded-2xl border border-blue-400"
@@ -73,13 +78,13 @@ const HeaderNav = ({
         </View>
       ) : nonClient ? (
         <View
-          className="bg-white px-6 pb-6 pt-16 flex-row justify-between items-center rounded-b-[20px] z-10"
+          className="bg-white px-6 pb-6 pt-5 flex-row justify-between items-center rounded-b-[20px] z-10"
           style={{
             shadowColor: "#000",
-            shadowOffset: { width: 0, height: 8 },
-            shadowOpacity: 1,
-            shadowRadius: 40,
-            elevation: 10,
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.05,
+            shadowRadius: 10,
+            elevation: 4,
           }}
         >
           <TouchableOpacity onPress={onPress}>
@@ -91,7 +96,7 @@ const HeaderNav = ({
           </TouchableOpacity>
         </View>
       ) : null}
-    </>
+    </SafeAreaView>
   );
 };
 

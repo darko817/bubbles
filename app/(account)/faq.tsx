@@ -28,7 +28,7 @@ const Faq = () => {
         <Image
           source={images.headerImage}
           resizeMode="cover"
-          className="h-60"
+          className="h-60 w-full"
         />
       </View>
       <ScrollView className=" rounded-t-[20px] bg-white -mt-5 px-12">

@@ -1,4 +1,5 @@
-import { ACCOUNT_ROUTES, Order } from "@/types";
+import { ACCOUNT_ROUTES, ClothingItem, Order } from "@/types";
+import { icons } from "./icons";
 
 export const weights = [
   { id: "1", text: "0-500g", price: 150 },
@@ -16,42 +17,56 @@ export const languages = [
 export const accountCards = [
   {
     id: "1",
-    icon: "user",
+    icon: icons.ordersIcon,
     text: "My orders",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.orders,
   },
   {
     id: "2",
-    icon: "user",
+    icon: icons.cartIcon,
     text: "Cart",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.cart,
   },
   {
     id: "3",
-    icon: "user",
+    icon: icons.faqIcon,
     text: "FAQ",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.faq,
   },
   {
     id: "4",
-    icon: "user",
+    icon: icons.profileIcon,
     text: "My profile",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.profile,
   },
   {
     id: "5",
-    icon: "user",
+    icon: icons.supportIcon,
     text: "Support",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.support,
   },
   {
+    id: "6",
+    icon: icons.languageIcon,
+    text: "Language",
+    icon2: "chevron-right",
+    route: ACCOUNT_ROUTES.language,
+  },
+  {
+    id: "7",
+    icon: icons.notifyIcon,
+    text: "Notifications",
+    icon2: "chevron-right",
+    route: ACCOUNT_ROUTES.notifications,
+  },
+  {
     id: "8",
-    icon: "user",
+    icon: icons.logoutIcon,
     text: "Log out",
     icon2: "chevron-right",
     route: ACCOUNT_ROUTES.logout,
@@ -124,4 +139,11 @@ export const orders: Order[] = [
     pickupDate: "27-09-2022",
     pickupTime: "17:00-19:00",
   },
+];
+
+export const clothingItems: ClothingItem[] = [
+  { id: "kosulja", name: "Košulja", price: 300 },
+  { id: "pantalone", name: "Pantalone", price: 400 },
+  { id: "suknja", name: "Suknja", price: 600 },
+  { id: "kaput", name: "Kaput", price: 1000 },
 ];

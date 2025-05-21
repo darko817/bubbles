@@ -10,22 +10,9 @@ export default function RootLayout() {
     <AuthProvider>
       <OrderProvider>
         <CartProvider>
-          {/*   <StatusBar hidden /> */}
           <Stack>
             <Stack.Screen
-              name="(auth)/index"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="(auth)/login"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="(auth)/signUp"
+              name="(auth)"
               options={{
                 headerShown: false,
               }}
@@ -37,7 +24,13 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="(home)/service"
+              name="(home)/serviceByKg"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="(home)/serviceByItem"
               options={{
                 headerShown: false,
               }}
@@ -68,6 +61,12 @@ export default function RootLayout() {
             />
             <Stack.Screen
               name="(home)/orderStatus"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="(home)/allOrderStatus"
               options={{
                 headerShown: false,
               }}

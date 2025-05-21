@@ -19,7 +19,7 @@ const Language = () => {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-white">
       <View>
         <HeaderNav
           icon="arrow-left"
@@ -28,7 +28,9 @@ const Language = () => {
           client
         />
         <ScrollView className="px-12 py-10">
-          <Text className="text-blue-400 text-xl font-bold ">Language</Text>
+          <Text className="text-blue-400 text-xl font-bold ">
+            Choose your language
+          </Text>
           <View className="mt-4">
             <TouchableOpacity
               onPress={() => changeLanguage("sr")}

@@ -2,18 +2,27 @@ import AccountBtn from "@/components/AccountBtn";
 import HeaderNav from "@/components/Header";
 import CustomModal from "@/components/modals/CustomModal";
 import { accountCards } from "@/constants/data";
+import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { AuthContext } from "@/context/AuthContext";
 import { useLogoutConfirmation } from "@/hooks/useLogout";
 import { useRouter } from "expo-router";
 import React, { useContext } from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, Linking, Platform, Text, View } from "react-native";
 
 const AccountScreen = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
   const { isModalVisible, requestLogout, confirmLogout, cancelLogout } =
     useLogoutConfirmation();
+
+  const openNotificationSettings = () => {
+    if (Platform.OS === "android") {
+      Linking.openSettings(); // Opens system settings for the app
+    } else if (Platform.OS === "ios") {
+      Linking.openURL("app-settings:"); // Opens app settings on iOS
+    }
+  };
 
   return (
     <View className="flex-1">
@@ -26,9 +35,9 @@ const AccountScreen = () => {
         />
         <View className="-mt-4 -z-10 relative">
           <Image
-            source={images.headerImage}
+            source={images.acccountImage}
             resizeMode="cover"
-            className="h-60"
+            className="h-60 w-full"
           />
         </View>
 
@@ -36,14 +45,14 @@ const AccountScreen = () => {
           data={accountCards}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={() => (
-            <View className="pt-10 pb-3 bg-white ">
+            <View className="pt-10 mb-3 bg-white ">
               <Text className="pl-12 text-3xl text-blue-400 text-left">
                 Account
               </Text>
             </View>
           )}
           renderItem={({ item }) => (
-            <View className="px-12 pb-5 bg-white">
+            <View className="px-12 bg-white">
               <AccountBtn
                 icon={item.icon}
                 title={item.text}
@@ -51,6 +60,8 @@ const AccountScreen = () => {
                 onPress={
                   item.text === "Log out"
                     ? requestLogout
+                    : item.text === "Notifications"
+                    ? openNotificationSettings
                     : () => router.push(item.route)
                 }
               />
@@ -61,6 +72,7 @@ const AccountScreen = () => {
       </View>
 
       <CustomModal
+        icon={icons.exclamationIcon}
         isVisible={isModalVisible}
         title="Da li ste sigurni da želite da se izlogujete?"
         onConfirm={confirmLogout}

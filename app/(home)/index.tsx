@@ -1,6 +1,7 @@
 import HeaderNav from "@/components/Header";
 import InCartBtn from "@/components/InCartBtn";
 import ServiceButton from "@/components/ServiceButton";
+import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { AuthContext } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
@@ -33,7 +34,7 @@ export default function HomeScreen() {
         <Image
           source={images.headerImage}
           resizeMode="cover"
-          className="h-60"
+          className="h-60 w-full"
         />
         {showAddedOverlay && (
           <View className="absolute w-full h-full justify-center items-center z-50">
@@ -56,26 +57,25 @@ export default function HomeScreen() {
           </Text>
         </View>
         <View className="flex-col gap-6 px-10 pb-12">
-          {/* Pretopstavljam da svaki otvara ipak drigaciji screen, ali za sada su isti, pa cu kasnije Flat list */}
           <ServiceButton
             text="Pranje po artiklu"
             icon="chevron-right"
-            image={images.washer}
+            image={icons.washerIcon}
             onPress={() =>
               router.push({
-                pathname: "/(home)/service",
+                pathname: "/(home)/serviceByItem",
                 params: { service: "Pranje po artiklu" },
               })
             }
           />
-          {/* {-----------------------------------------------------} */}
+
           <ServiceButton
             text="Pranje po kg"
             icon="chevron-right"
-            image={images.washer}
+            image={icons.shirtIcon}
             onPress={() =>
               router.push({
-                pathname: "/(home)/service",
+                pathname: "/(home)/serviceByKg",
                 params: { service: "Pranje po kg" },
               })
             }
@@ -83,10 +83,10 @@ export default function HomeScreen() {
           <ServiceButton
             text="Peglanje"
             icon="chevron-right"
-            image={images.washer}
+            image={icons.ironIcon}
             onPress={() =>
               router.push({
-                pathname: "/(home)/service",
+                pathname: "/(home)/serviceByKg",
                 params: { service: "Peglanje" },
               })
             }
@@ -94,10 +94,10 @@ export default function HomeScreen() {
           <ServiceButton
             text="Premium pranje"
             icon="chevron-right"
-            image={images.washer}
+            image={icons.styleIcon}
             onPress={() =>
               router.push({
-                pathname: "/(home)/service",
+                pathname: "/(home)/serviceByKg",
                 params: { service: "Premium pranje" },
               })
             }

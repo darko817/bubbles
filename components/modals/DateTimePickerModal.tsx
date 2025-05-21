@@ -101,14 +101,14 @@ const DateTimePickerModal = ({
           <View className="flex-row justify-evenly py-4">
             <WheelPickerExpo
               height={250}
-              width={150}
+              width={200}
               initialSelectedIndex={selectedDateIndex}
               items={dateSlots}
               onChange={({ index }) => setSelectedDateIndex(index)}
             />
             <WheelPickerExpo
               height={250}
-              width={150}
+              width={200}
               initialSelectedIndex={selectedTimeIndex}
               items={timeSlots}
               onChange={({ index }) => setSelectedTimeIndex(index)}

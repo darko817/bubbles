@@ -27,3 +27,18 @@ export interface Order {
   pickupDate: string;
   pickupTime: string;
 }
+
+export interface ClothingItem {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export type SignUpErrors = {
+  name?: string;
+  surname?: string;
+  phoneNumber?: string;
+  email?: string;
+  password?: string;
+  agreement?: string;
+};

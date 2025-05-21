@@ -15,10 +15,10 @@ const CartHeaderNav = ({ icon, onPress, title }: HeaderNavprops) => {
       className="bg-blue-400 px-4 pb-6 pt-24 flex-row justify-between items-center rounded-b-[20px] z-10"
       style={{
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 1,
-        shadowRadius: 40,
-        elevation: 10, // for Android
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 4,
       }}
     >
       <TouchableOpacity onPress={onPress}>

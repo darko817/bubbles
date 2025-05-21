@@ -30,27 +30,22 @@ const StatusModal: React.FC<StatusModalProps> = ({ isVisible, onClose }) => {
         >
           {isExpanded ? (
             <View className="flex flex-row justify-between items-center w-full gap-6 mb-5">
-              {/* Block 1 */}
               <View className="items-center">
                 <MaterialIcons name="directions-car" size={36} color="grey" />
                 <Text className="text-lg mt-1">Preuzimanje</Text>
                 <Text className="text-blue-400">za 31min</Text>
               </View>
 
-              {/* Divider */}
               <View className="w-px h-16 bg-blue-400" />
 
-              {/* Block 2 */}
               <View className="items-center">
                 <Text className="text-lg">Vozač</Text>
                 <Text>driver name</Text>
                 <Text className="text-blue-400">driver phone</Text>
               </View>
 
-              {/* Divider */}
               <View className="w-px h-16 bg-blue-400" />
 
-              {/* Block 3 */}
               <View className="items-center">
                 <Text className="text-lg">Vozilo</Text>
                 <Text>BG-222-222</Text>

@@ -2,7 +2,10 @@ import { useState } from "react";
 import {
   Image,
   ImageSourcePropType,
+  Platform,
+  StyleProp,
   TextInput,
+  TextStyle,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -28,6 +31,11 @@ interface Props {
     | "emailAddress"
     | "telephoneNumber";
 }
+
+const getInputStyle = (): StyleProp<TextStyle> => ({
+  height: Platform.OS === "android" ? 40 : 36,
+  paddingVertical: Platform.OS === "android" ? 0 : 4,
+});
 
 const Input = ({
   placeholder,
@@ -60,6 +68,7 @@ const Input = ({
         value={value}
         onChangeText={onChangeText}
         className="flex-1 ml-2 text-black"
+        style={getInputStyle()}
         placeholderTextColor="#949597"
         secureTextEntry={isPasswordVisible}
         keyboardType={keyboardType}
@@ -68,7 +77,7 @@ const Input = ({
       {secureTextEntry && (
         <TouchableOpacity onPress={togglePasswordVisibility}>
           <Icon
-            name={isPasswordVisible ? "eye" : "eye-slash"} // Change icon based on visibility
+            name={isPasswordVisible ? "eye" : "eye-slash"}
             size={20}
             color="gray"
           />
